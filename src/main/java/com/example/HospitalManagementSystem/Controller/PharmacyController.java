@@ -1,7 +1,7 @@
-package com.example.HospitalManagementSystem.Controller;
+package com.example.HospitalManagementSystem.controller;
 
-import com.example.HospitalManagementSystem.dto.DispenseRequest;
-import com.example.HospitalManagementSystem.dto.StockUpdateRequest;
+import com.example.HospitalManagementSystem.view.DispenseRequest;
+import com.example.HospitalManagementSystem.view.StockUpdateRequest;
 import com.example.HospitalManagementSystem.model.MedicineStock;
 import com.example.HospitalManagementSystem.model.Prescription;
 import com.example.HospitalManagementSystem.service.HospitalService;

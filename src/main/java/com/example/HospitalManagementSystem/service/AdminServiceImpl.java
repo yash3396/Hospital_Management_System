@@ -1,13 +1,13 @@
 package com.example.HospitalManagementSystem.service;
 
-import com.example.HospitalManagementSystem.dto.DepartmentRequest;
-import com.example.HospitalManagementSystem.dto.DoctorRequest;
-import com.example.HospitalManagementSystem.dto.ScheduleRequest;
+import com.example.HospitalManagementSystem.view.DepartmentRequest;
+import com.example.HospitalManagementSystem.view.DoctorRequest;
+import com.example.HospitalManagementSystem.view.ScheduleRequest;
 import com.example.HospitalManagementSystem.model.*;
 import com.example.HospitalManagementSystem.repository.*;
-import jakarta.transaction.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.security.SecureRandom;
 import java.time.LocalDate;
@@ -121,15 +121,6 @@ public class AdminServiceImpl implements AdminService {
         if (!doctorRepository.existsById(id)) {
             throw new IllegalArgumentException("Doctor not found: " + id);
         }
-        // optionally delete linked user? For safety we will not remove the User automatically.
-        // If you want to delete the user as well, uncomment below.
-        /*
-        doctorRepository.findById(id).ifPresent(d -> {
-            if (d.getUser() != null) {
-                userRepository.deleteById(d.getUser().getId());
-            }
-        });
-         */
         doctorRepository.deleteById(id);
     }
 
@@ -146,6 +137,14 @@ public class AdminServiceImpl implements AdminService {
 
     public List<Department> getAllDepartments() {
         return departmentRepository.findAll();
+    }
+
+    public List<Doctor> getAllDoctors() {
+        return doctorRepository.findAll();
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
 
@@ -182,7 +181,6 @@ public class AdminServiceImpl implements AdminService {
         userRepository.save(user);
     }
 
-    // ---------------------
     private String generateRandomPassword(int length) {
         final String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&*";
         SecureRandom rnd = new SecureRandom();

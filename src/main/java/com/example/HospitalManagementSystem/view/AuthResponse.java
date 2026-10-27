@@ -1,4 +1,4 @@
-package com.example.HospitalManagementSystem.dto;
+package com.example.HospitalManagementSystem.view;
 
 public class AuthResponse {
     private String token;

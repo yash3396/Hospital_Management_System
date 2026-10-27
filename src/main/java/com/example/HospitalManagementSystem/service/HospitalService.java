@@ -1,10 +1,12 @@
 package com.example.HospitalManagementSystem.service;
 
-import com.example.HospitalManagementSystem.dto.*;
+import com.example.HospitalManagementSystem.view.*;
 import com.example.HospitalManagementSystem.model.Appointment;
+import com.example.HospitalManagementSystem.model.Doctor;
 import com.example.HospitalManagementSystem.model.LabTest;
 import com.example.HospitalManagementSystem.model.MedicineStock;
 import com.example.HospitalManagementSystem.model.Prescription;
+import com.example.HospitalManagementSystem.model.User;
 
 import java.util.List;
 
@@ -20,8 +22,11 @@ public interface HospitalService {
     List<Prescription> getPatientPrescriptions(String patientEmail);
     List<LabTest> getPatientLabResults(String patientEmail);
 
+    List<Doctor> listDoctors();
+
     // receptionist
-    com.example.HospitalManagementSystem.model.User registerPatientByReceptionist(ReceptionistPatientRequest req);
+    List<User> listPatients();
+    User registerPatientByReceptionist(ReceptionistPatientRequest req);
     Appointment bookAppointmentForPatientByReceptionist(Long patientId, AppointmentBookingRequest req);
     Appointment checkinAppointment(Long appointmentId, String status);
 

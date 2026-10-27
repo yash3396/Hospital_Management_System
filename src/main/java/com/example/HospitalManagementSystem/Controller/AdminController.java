@@ -1,6 +1,6 @@
-package com.example.HospitalManagementSystem.Controller;
+package com.example.HospitalManagementSystem.controller;
 
-import com.example.HospitalManagementSystem.dto.*;
+import com.example.HospitalManagementSystem.view.*;
 import com.example.HospitalManagementSystem.model.Department;
 import com.example.HospitalManagementSystem.model.Doctor;
 import com.example.HospitalManagementSystem.model.Schedule;
@@ -57,6 +57,18 @@ public class AdminController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/doctors")
+    public ResponseEntity<List<Doctor>> getAllDoctors() {
+        return ResponseEntity.ok(adminService.getAllDoctors());
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/users")
+    public ResponseEntity<List<com.example.HospitalManagementSystem.model.User>> getAllUsers() {
+        return ResponseEntity.ok(adminService.getAllUsers());
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/schedules")
     public ResponseEntity<Schedule> createSchedule(@Valid @RequestBody ScheduleRequest req) {
         Schedule s = adminService.createSchedule(req);
@@ -74,7 +86,6 @@ public class AdminController {
     public ResponseEntity<PasswordResetResponse> resetUserPassword(@PathVariable Long id, @RequestBody PasswordResetRequest req) {
         String newPlain = (req != null) ? req.getPassword() : null;
         String plainPassword = adminService.resetUserPassword(id, newPlain);
-        // return the temporary/plain password to the caller (only admins can call this).
         return ResponseEntity.ok(new PasswordResetResponse(plainPassword));
     }
 }

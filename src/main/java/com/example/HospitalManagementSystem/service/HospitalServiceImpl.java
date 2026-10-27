@@ -1,11 +1,11 @@
 package com.example.HospitalManagementSystem.service;
 
-import com.example.HospitalManagementSystem.dto.*;
+import com.example.HospitalManagementSystem.view.*;
 import com.example.HospitalManagementSystem.model.*;
 import com.example.HospitalManagementSystem.repository.*;
-import jakarta.transaction.Transactional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -60,9 +60,7 @@ public class HospitalServiceImpl implements HospitalService {
         }
 
         // if prescription exists for appointment, update; otherwise create
-        Prescription p = prescriptionRepository.findAll().stream()
-                .filter(pr -> pr.getAppointment().getId().equals(appt.getId()))
-                .findFirst()
+        Prescription p = prescriptionRepository.findByAppointmentId(appt.getId())
                 .orElse(new Prescription(appt, req.getDiagnosis(), req.getMedicine()));
 
         p.setDiagnosis(req.getDiagnosis());
@@ -199,12 +197,9 @@ public class HospitalServiceImpl implements HospitalService {
     @Transactional
     public Prescription dispenseMedicine(Long prescriptionId) {
         Prescription p = prescriptionRepository.findById(prescriptionId).orElseThrow(() -> new IllegalArgumentException("Prescription not found: " + prescriptionId));
-        // for now mark dispensed and decrement stock (best effort parsing)
         p.setDispensed(true);
-        // we won't parse free-text medicine reliably; skip stock decrement or parse simply by medicine name if matches a stock record
         String medName = p.getMedicine();
         if (medName != null && !medName.isBlank()) {
-            // try to find a medicine by name substring (simple)
             medicineStockRepository.findByMedicineNameIgnoreCase(medName)
                     .ifPresent(ms -> {
                         ms.setQuantity(Math.max(0, ms.getQuantity() - 1));
@@ -226,6 +221,16 @@ public class HospitalServiceImpl implements HospitalService {
     @Override
     public List<Prescription> getPrescriptionsToDispense() {
         return prescriptionRepository.findByDispensedFalse();
+    }
+
+    @Override
+    public List<Doctor> listDoctors() {
+        return doctorRepository.findAll();
+    }
+
+    @Override
+    public List<User> listPatients() {
+        return userRepository.findByRole(RoleName.ROLE_PATIENT);
     }
 
 }

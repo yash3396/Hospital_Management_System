@@ -1,4 +1,4 @@
-package com.example.HospitalManagementSystem.dto;
+package com.example.HospitalManagementSystem.view;
 
 public class PasswordResetRequest {
     private String password;

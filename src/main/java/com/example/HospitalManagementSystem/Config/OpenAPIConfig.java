@@ -25,10 +25,9 @@ public class OpenAPIConfig {
                 )
                 .addSecurityItem(new SecurityRequirement().addList(SECURITY_SCHEME_NAME))
                 .info(new Info()
-                        .title("HOSPITAL MANAGEMENT SYSTEM-REST API")
+                        .title("MediConnect REST API")
                         .version("1.0.0")
-                        .description("A fully featured Hospital Management System built using Spring Boot. \n" +
-                                "Includes JWT Authentication, Role-Based Access Control (RBAC), and modules for Admin, Doctor, Patient, Receptionist, Lab Technician, and Pharmacist.")
+                        .description("MediConnect hospital workspace API. JWT authentication, role-based access, and modules for Admin, Doctor, Patient, Receptionist, Lab Technician, and Pharmacist.")
                         .contact(new Contact().name("HIRTHIKHA K").email("hirthi26@gmail.com"))
                         .license(new License().name("Apache 2.0").url("http://apache.org"))
                 );

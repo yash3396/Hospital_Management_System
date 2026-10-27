@@ -35,13 +35,7 @@ services:
       SPRING_DATASOURCE_URL: "jdbc:mysql://db:3306/hospitaldb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"
       SPRING_DATASOURCE_USERNAME: "appuser"
       SPRING_DATASOURCE_PASSWORD: "apppass"
-      SPRING_JPA_HIBERNATE_DDL_AUTO: "update"
       APP_JWT_SECRET: "verylongrandomstring_with_32+_chars_12345678"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health || exit 1"]
-      interval: 30s
-      timeout: 5s
-      retries: 5
 
 volumes:
   db_data:

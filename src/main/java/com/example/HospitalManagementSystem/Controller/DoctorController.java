@@ -1,7 +1,7 @@
-package com.example.HospitalManagementSystem.Controller;
+package com.example.HospitalManagementSystem.controller;
 
-import com.example.HospitalManagementSystem.dto.LabTestRequest;
-import com.example.HospitalManagementSystem.dto.PrescriptionRequest;
+import com.example.HospitalManagementSystem.view.LabTestRequest;
+import com.example.HospitalManagementSystem.view.PrescriptionRequest;
 import com.example.HospitalManagementSystem.model.Appointment;
 import com.example.HospitalManagementSystem.model.LabTest;
 import com.example.HospitalManagementSystem.model.Prescription;

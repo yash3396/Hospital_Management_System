@@ -1,7 +1,7 @@
 package com.example.HospitalManagementSystem.service;
 
-import com.example.HospitalManagementSystem.dto.LoginRequest;
-import com.example.HospitalManagementSystem.dto.RegistrationRequest;
+import com.example.HospitalManagementSystem.view.LoginRequest;
+import com.example.HospitalManagementSystem.view.RegistrationRequest;
 import com.example.HospitalManagementSystem.model.Role;
 import com.example.HospitalManagementSystem.model.RoleName;
 import com.example.HospitalManagementSystem.model.User;
@@ -17,6 +17,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -67,5 +69,10 @@ public class UserServiceImpl implements UserService {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         UserDetails ud = (UserDetails) authentication.getPrincipal();
         return jwtUtil.generateToken(ud);
+    }
+
+    @Override
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 }
